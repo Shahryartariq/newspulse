@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { DUMMY_NEWS } from '@/dummy-news';
 
 const NewsImagePage = ({params}) => {
-  const { "news-id": newsId } = params;
+  const { "slug": newsId } = params;
   const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsId);
 
   if(!newsItem){

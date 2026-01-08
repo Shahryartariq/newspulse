@@ -1,8 +1,12 @@
-import { notFound } from 'next/navigation'; 
+"use client";
+
+import { notFound, useRouter } from 'next/navigation'; 
 import { DUMMY_NEWS } from '@/dummy-news'; 
 
 const InterceptedNewsImagePage = ({ params }) => { 
-  const { "news-id": newsId } = params; 
+  const router = useRouter();
+
+  const { "slug": newsId } = params; 
   const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsId); 
 
   if (!newsItem) { 
@@ -11,7 +15,7 @@ const InterceptedNewsImagePage = ({ params }) => {
 
   return ( 
     <> 
-      <div className='modal-backdrop'/>
+      <div className='modal-backdrop' onClick={router.back}/>
       <dialog className='modal' open> 
         <div className='fullscreen-image'> 
           <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} /> 
