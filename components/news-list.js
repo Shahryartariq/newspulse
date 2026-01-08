@@ -5,7 +5,6 @@ import React from 'react';
 const NewsList = ({news}) => {
   return (
     <>
-    <h1>News Page</h1>
     <ul className='news-list'>
       {news.map((newsItem) => (
         <li key={newsItem.id}>
