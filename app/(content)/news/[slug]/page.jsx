@@ -1,12 +1,12 @@
 
-import { DUMMY_NEWS } from '@/dummy-news';
+import { getNewsItem } from '@/lib/news';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-const DetailedNewsPage = ({ params }) => {
+const DetailedNewsPage = async ({ params }) => {
   const { "slug": newsId } = params;
   
-  const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsId);
+  const newsItem = await getNewsItem(newsId)
   if (!newsItem) {
     notFound();
   }
@@ -18,7 +18,13 @@ const DetailedNewsPage = ({ params }) => {
         <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
       </Link>
         <h1>{newsItem.title}</h1>
-        <time dateTime={newsItem.date}>{newsItem.date}</time>
+        <time dateTime={newsItem.date.toISOString()}>
+          {newsItem.date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
       </header>
       <p>{newsItem.content}</p>
     </article>
